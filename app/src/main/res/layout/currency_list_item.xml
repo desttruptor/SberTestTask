@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="16dp"
@@ -15,16 +16,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
             android:maxLines="2"
             android:text="Фунт стерлингов Соединенного королевства"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/currency_short_name"
             app:layout_constraintEnd_toEndOf="@id/guideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/currency_value" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -51,9 +50,11 @@
             android:text="105,2856"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline"
-            app:layout_constraintTop_toTopOf="@id/currency_name" />
+            tools:layout_editor_absoluteY="47dp" />
 
         <TextView
             android:id="@+id/currency_short_name"
@@ -62,8 +63,9 @@
             android:layout_marginTop="4dp"
             android:text="GBP"
             android:textSize="18sp"
+            android:layout_marginBottom="16dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/currency_name"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/currency_value"
             app:layout_constraintStart_toStartOf="@id/currency_value"
             app:layout_constraintTop_toBottomOf="@id/currency_value" />
