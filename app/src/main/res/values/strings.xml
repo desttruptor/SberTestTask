@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">SberTestTask</string>
-    <string name="label_currency_rate">Курс валют к рублю</string>
+    <string name="label_currency_rate">Курсы валют</string>
     <string name="label_currency_converter">Конвертер валют</string>
 </resources>
