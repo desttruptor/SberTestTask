@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import me.podlesnykh.sbertesttask.R
 import me.podlesnykh.sbertesttask.databinding.FragmentCurrencyListBinding
 import me.podlesnykh.sbertesttask.network.CurrencyItem
 
@@ -26,6 +30,8 @@ class CurrencyListFragment : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         _binding = FragmentCurrencyListBinding.inflate(inflater, container, false)
         val view = binding.root
+        (activity as AppCompatActivity).supportActionBar?.title =
+            getString(R.string.label_currency_rate)
         return view
     }
 
@@ -48,5 +54,8 @@ class CurrencyListFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.rvCurrencyList.adapter = adapter
+        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
+        binding.rvCurrencyList.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 }
