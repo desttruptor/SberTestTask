@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorDestinationBuilder
+import androidx.navigation.fragment.findNavController
+import me.podlesnykh.sbertesttask.currency_converter_fragment.CurrencyConverterFragment
 import me.podlesnykh.sbertesttask.databinding.FragmentCurrencyListBinding
 
 class CurrencyListFragment : Fragment() {
@@ -25,5 +28,11 @@ class CurrencyListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun openConverterScreen(numCode: Int) {
+        findNavController().navigate(
+            CurrencyListFragmentDirections.navigateToConverter(numCode)
+        )
     }
 }
