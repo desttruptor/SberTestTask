@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/app_navigation"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_navigation"
     app:startDestination="@id/currencyListFragment">
 
     <fragment
         android:id="@+id/currencyListFragment"
         android:name="me.podlesnykh.sbertesttask.currency_list_fragment.CurrencyListFragment"
-        android:label="CurrencyListFragment" >
+        android:label="CurrencyListFragment"
+        tools:layout="@layout/fragment_currency_list">
         <action
-            android:id="@+id/action_currencyListFragment_to_currencyConverterFragment"
+            android:id="@+id/navigate_to_converter"
             app:destination="@id/currencyConverterFragment" />
     </fragment>
     <fragment
         android:id="@+id/currencyConverterFragment"
         android:name="me.podlesnykh.sbertesttask.currency_converter_fragment.CurrencyConverterFragment"
-        android:label="CurrencyConverterFragment" >
+        android:label="CurrencyConverterFragment"
+        tools:layout="@layout/fragment_converter">
         <argument
-            android:name="currency_code"
+            android:name="num_code"
             app:argType="integer" />
     </fragment>
 </navigation>
