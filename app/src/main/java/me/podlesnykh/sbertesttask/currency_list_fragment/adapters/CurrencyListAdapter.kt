@@ -1,4 +1,4 @@
-package me.podlesnykh.sbertesttask.currency_list_fragment
+package me.podlesnykh.sbertesttask.currency_list_fragment.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,7 @@ import me.podlesnykh.sbertesttask.network.CurrencyItem
 
 class CurrencyListAdapter(
     private var currency: List<CurrencyItem>,
-    private val onClick: (Int) -> Unit
+    private val onClick: (Double, Int) -> Unit
 ) : RecyclerView.Adapter<CurrencyListAdapter.CurrencyListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -42,6 +42,12 @@ class CurrencyListAdapter(
             listItemBinding.currencyName.text = nameAndNominal
             listItemBinding.currencyValue.text = currencyItem.value.toString()
             listItemBinding.currencyShortName.text = currencyItem.charCode
+            listItemBinding.root.setOnClickListener {
+                onClick(
+                    currencyItem.value,
+                    currencyItem.nominal
+                )
+            }
         }
     }
 
@@ -57,6 +63,5 @@ class CurrencyListAdapter(
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
             oldList[oldItemPosition] == newList[newItemPosition]
-
     }
 }

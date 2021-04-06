@@ -5,19 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/label_i_have"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="64dp"
+        android:labelFor="@id/currency_1"
+        android:text="@string/label_i_have"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/currency_1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="48dp"
         android:importantForAutofill="no"
         android:inputType="number"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline2"
-        tools:ignore="LabelFor" />
+        app:layout_constraintStart_toStartOf="@id/label_i_have"
+        app:layout_constraintTop_toBottomOf="@id/label_i_have" />
+
+    <Button
+        android:id="@+id/calculate_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_calculate"
+        app:layout_constraintStart_toStartOf="@id/currency_1"
+        app:layout_constraintTop_toBottomOf="@id/currency_1" />
 
     <ImageView
         android:id="@+id/drawable_arrows"
@@ -28,35 +46,44 @@
         android:src="@drawable/baseline_compare_arrows_black_48dp"
         app:layout_constraintEnd_toEndOf="@id/currency_1"
         app:layout_constraintStart_toStartOf="@id/currency_1"
-        app:layout_constraintTop_toBottomOf="@id/currency_1" />
+        app:layout_constraintTop_toBottomOf="@id/calculate_value" />
+
+    <TextView
+        android:id="@+id/label_i_want"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:labelFor="@id/currency_2"
+        android:text="@string/label_i_want"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/currency_1"
+        app:layout_constraintTop_toBottomOf="@id/drawable_arrows" />
 
     <EditText
         android:id="@+id/currency_2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:importantForAutofill="no"
         android:inputType="number"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/currency_1"
         app:layout_constraintStart_toStartOf="@+id/currency_1"
-        app:layout_constraintTop_toBottomOf="@id/drawable_arrows"
+        app:layout_constraintTop_toBottomOf="@+id/label_i_want"
         tools:ignore="LabelFor" />
 
-    <SeekBar
-        android:id="@+id/converter_seekbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/currency_2"
-        app:layout_constraintStart_toStartOf="@id/currency_2"
-        app:layout_constraintTop_toBottomOf="@id/currency_2"
-        app:layout_constraintVertical_bias="0.9" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent=".2"
-        android:orientation="horizontal" />
+        android:text="@string/label_russian_roubles"
+        app:layout_constraintEnd_toEndOf="@+id/currency_1"
+        app:layout_constraintTop_toTopOf="@+id/label_i_have" />
+
+    <Button
+        android:id="@+id/calculate_nominal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_calculate"
+        app:layout_constraintStart_toStartOf="@id/currency_2"
+        app:layout_constraintTop_toBottomOf="@id/currency_2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

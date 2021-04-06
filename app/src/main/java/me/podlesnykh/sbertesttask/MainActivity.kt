@@ -1,8 +1,7 @@
 package me.podlesnykh.sbertesttask
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import me.podlesnykh.sbertesttask.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

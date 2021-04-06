@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.podlesnykh.sbertesttask.R
+import me.podlesnykh.sbertesttask.currency_list_fragment.adapters.CurrencyListAdapter
 import me.podlesnykh.sbertesttask.databinding.FragmentCurrencyListBinding
 import me.podlesnykh.sbertesttask.network.CurrencyItem
 
@@ -19,8 +21,16 @@ class CurrencyListFragment : Fragment() {
     private val binding get() = _binding!!
 
     // адаптер инициализируется пустым списком
-    private val currencyList: List<CurrencyItem> = emptyList()
-    private val adapter = CurrencyListAdapter(currencyList, this::openConverterScreen)
+    private val currencyList: List<CurrencyItem> = listOf(
+        CurrencyItem(
+            numCode = 100,
+            charCode = "CAD",
+            nominal = 1,
+            name = "Канадский доллар",
+            value = 60.9817
+        )
+    )
+    private val adapter = CurrencyListAdapter(currencyList, ::openConverterScreen)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,9 +56,13 @@ class CurrencyListFragment : Fragment() {
     }
 
     // переход на экран конвертера выбранной валюты
-    private fun openConverterScreen(numCode: Int) {
+    private fun openConverterScreen(value: Double, nominal: Int) {
         findNavController().navigate(
-            CurrencyListFragmentDirections.navigateToConverter(numCode)
+            R.id.currencyConverterFragment,
+            bundleOf(
+                "value" to value,
+                "nominal" to nominal
+            )
         )
     }
 
