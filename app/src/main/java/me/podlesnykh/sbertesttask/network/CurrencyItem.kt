@@ -1,9 +1,10 @@
 package me.podlesnykh.sbertesttask.network
 
+import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Element
+import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
 
-@Root(name = "ValCurs")
 data class CurrencyItem(
     @Element(name = "NumCode")
     val numCode: Int,
@@ -15,4 +16,12 @@ data class CurrencyItem(
     val name: String,
     @Element(name = "Value")
     val value: Double
+)
+
+@Root(name = "ValCurs")
+data class CurrencyList(
+    @ElementList(inline = true)
+    val currencyList: List<CurrencyItem>,
+    @Attribute(name = "Date")
+    val date: String
 )
