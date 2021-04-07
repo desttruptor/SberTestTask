@@ -12,15 +12,13 @@
         tools:layout="@layout/fragment_currency_list">
         <action
             android:id="@+id/navigate_to_converter"
-            app:destination="@id/currencyConverterFragment" />
+            app:destination="@id/currencyConverterFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
     </fragment>
     <fragment
         android:id="@+id/currencyConverterFragment"
         android:name="me.podlesnykh.sbertesttask.currency_converter_fragment.CurrencyConverterFragment"
         android:label="CurrencyConverterFragment"
-        tools:layout="@layout/fragment_converter">
-        <argument
-            android:name="num_code"
-            app:argType="integer" />
-    </fragment>
+        tools:layout="@layout/fragment_converter"/>
 </navigation>
