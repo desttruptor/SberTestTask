@@ -2,6 +2,6 @@ package me.podlesnykh.sbertesttask.network
 
 import okhttp3.OkHttpClient
 
-object CurrencyRateRepository {
+object OkHttpInstance {
     val client = OkHttpClient()
 }

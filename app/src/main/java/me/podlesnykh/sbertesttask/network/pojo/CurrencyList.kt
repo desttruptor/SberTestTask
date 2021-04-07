@@ -1,7 +1,6 @@
 package me.podlesnykh.sbertesttask.network.pojo
 
 import org.simpleframework.xml.Attribute
-import org.simpleframework.xml.Element
 import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
 

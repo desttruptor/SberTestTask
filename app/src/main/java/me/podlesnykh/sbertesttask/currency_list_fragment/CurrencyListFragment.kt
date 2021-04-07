@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import me.podlesnykh.sbertesttask.R
 import me.podlesnykh.sbertesttask.currency_list_fragment.adapters.CurrencyListAdapter
 import me.podlesnykh.sbertesttask.databinding.FragmentCurrencyListBinding
@@ -43,12 +44,44 @@ class CurrencyListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(CurrencyListFragmentViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            CurrencyListFragmentViewModelFactory(requireActivity().application)
+        ).get(CurrencyListFragmentViewModel::class.java)
 
         setupRecyclerView()
         viewModel.loadCurrencyList()
+
+        viewModel.errorDialog.observe(viewLifecycleOwner) {
+            showError(it)
+        }
+        viewModel.loadingFlag.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
         viewModel.currencyList.observe(viewLifecycleOwner) {
             adapter.submitList(it.currencyList)
+        }
+    }
+
+    private fun showError(isShown: Boolean) {
+        if (isShown) {
+            val snackbar = Snackbar.make(
+                binding.root,
+                requireContext().getString(R.string.label_error),
+                Snackbar.LENGTH_INDEFINITE
+            )
+            snackbar.setAction(getString(R.string.label_retry)) {
+                viewModel.loadCurrencyList()
+            }
+            snackbar.show()
+        }
+    }
+
+    private fun showLoading(isShown: Boolean) {
+        binding.currencyListProgress.visibility = if (isShown) {
+            View.VISIBLE
+        } else {
+            View.GONE
         }
     }
 

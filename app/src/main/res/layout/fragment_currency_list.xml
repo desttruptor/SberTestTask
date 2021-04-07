@@ -15,12 +15,13 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/currency_list_item" />
 
-    <TextView
-        android:id="@+id/text_test"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+    <ProgressBar
+        android:id="@+id/currency_list_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rv_currency_list"
+        app:layout_constraintEnd_toEndOf="@id/rv_currency_list"
+        app:layout_constraintStart_toStartOf="@id/rv_currency_list"
+        app:layout_constraintTop_toTopOf="@id/rv_currency_list" />
 </androidx.constraintlayout.widget.ConstraintLayout>
