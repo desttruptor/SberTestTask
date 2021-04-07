@@ -16,7 +16,6 @@ import okhttp3.Response
 import org.simpleframework.xml.core.Persister
 import java.io.IOException
 import java.io.StringReader
-import java.util.concurrent.Callable
 
 class CurrencyListFragmentViewModel(application: Application) : ViewModel() {
 
@@ -44,6 +43,13 @@ class CurrencyListFragmentViewModel(application: Application) : ViewModel() {
             override fun onFailure(call: Call, e: IOException) {
                 errorDialog.postValue(true)
                 _loadingFlag.postValue(false)
+                val dbEntity = db.currencyStorageDao().getAll()
+                _currencyList.postValue(
+                    CurrencyList(
+                        dbEntity.currencyList,
+                        dbEntity.date
+                    )
+                )
             }
 
             override fun onResponse(call: Call, response: Response) {
