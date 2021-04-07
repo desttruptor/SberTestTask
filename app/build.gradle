@@ -59,6 +59,9 @@ dependencies {
         exclude module: 'xpp3'
     }
 
+    // OkHttp
+    implementation "com.squareup.okhttp3:okhttp:4.9.0"
+
     // new recyclerview
     implementation "androidx.recyclerview:recyclerview:1.2.0-rc01"
 

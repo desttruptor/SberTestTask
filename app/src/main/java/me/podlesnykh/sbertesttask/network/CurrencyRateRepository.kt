@@ -1,42 +1,36 @@
 package me.podlesnykh.sbertesttask.network
 
-import android.util.Log
 import me.podlesnykh.sbertesttask.BuildConfig
+import okhttp3.*
 import org.simpleframework.xml.core.Persister
-import java.io.*
-import java.net.HttpURLConnection
-import java.net.URL
-import java.util.concurrent.Callable
+import java.io.IOException
+import java.io.StringReader
 
 class CurrencyRateRepository() {
-    fun loadCurrencyList(): Any {
-        return Callable<Any> {
-            var urlConnection: HttpURLConnection? = null
-            try {
-                val url = URL(BuildConfig.CURRENCY_RATE_URL)
-                urlConnection = url.openConnection() as HttpURLConnection
+    companion object {
+        val client = OkHttpClient()
+    }
 
-                val code = urlConnection.responseCode
-                if (code != 200) {
-                    return@Callable Result.Error("Invalid response from server $code")
-                }
+    private fun loadCurrencyList(): Any {
+        val request = Request.Builder()
+            .url(BuildConfig.CURRENCY_RATE_URL)
+            .build()
 
-                val rd = BufferedReader(InputStreamReader(urlConnection.inputStream)).toString()
-                val reader = StringReader(rd)
-                val serializer = Persister()
+        lateinit var callResult: Any
 
-                try {
-                    val currencyList = serializer.read(CurrencyList::class.java, reader, false)
-                    return@Callable Result.Success(currencyList)
-                } catch (e: Exception) {
-                    Log.e("Xml parser", e.message.toString())
-                }
-            } finally {
-                if (urlConnection != null) {
-                    urlConnection.disconnect()
-                }
-
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                callResult = Result.Error(e.message ?: "")
             }
-        }
+
+            override fun onResponse(call: Call, response: Response) {
+                val reader = StringReader(response.body.toString())
+                val serializer = Persister()
+                val currencyList = serializer.read(CurrencyList::class.java, reader, false)
+                callResult = Result.Success(currencyList)
+            }
+        })
+
+        return callResult
     }
 }
