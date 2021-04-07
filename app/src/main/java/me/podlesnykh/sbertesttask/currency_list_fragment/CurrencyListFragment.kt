@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.podlesnykh.sbertesttask.R
 import me.podlesnykh.sbertesttask.currency_list_fragment.adapters.CurrencyListAdapter
 import me.podlesnykh.sbertesttask.databinding.FragmentCurrencyListBinding
-import me.podlesnykh.sbertesttask.network.CurrencyItem
+import me.podlesnykh.sbertesttask.network.pojo.Valute
 
 class CurrencyListFragment : Fragment() {
 
@@ -21,8 +22,10 @@ class CurrencyListFragment : Fragment() {
     private val binding get() = _binding!!
 
     // адаптер инициализируется пустым списком
-    private val currencyList: List<CurrencyItem> = emptyList()
+    private val currencyList: List<Valute> = emptyList()
     private val adapter = CurrencyListAdapter(currencyList, ::openConverterScreen)
+
+    private lateinit var viewModel: CurrencyListFragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +42,14 @@ class CurrencyListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this).get(CurrencyListFragmentViewModel::class.java)
+
         setupRecyclerView()
+        viewModel.loadCurrencyList()
+        viewModel.currencyList.observe(viewLifecycleOwner) {
+            adapter.submitList(it.currencyList)
+        }
     }
 
     override fun onDestroyView() {
