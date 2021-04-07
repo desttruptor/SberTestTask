@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import me.podlesnykh.sbertesttask.R
 import me.podlesnykh.sbertesttask.databinding.CurrencyListItemBinding
-import me.podlesnykh.sbertesttask.network.CurrencyItem
+import me.podlesnykh.sbertesttask.network.pojo.Valute
+import java.text.NumberFormat
+import java.util.*
 
 class CurrencyListAdapter(
-    private var currency: List<CurrencyItem>,
+    private var currency: List<Valute>,
     private val onClick: (Double, Int, String) -> Unit
 ) : RecyclerView.Adapter<CurrencyListAdapter.CurrencyListViewHolder>() {
 
@@ -26,7 +28,7 @@ class CurrencyListAdapter(
 
     override fun getItemCount() = currency.size
 
-    fun submitList(newList: List<CurrencyItem>) {
+    fun submitList(newList: List<Valute>) {
         // вычисление разницы между списком, который держит адаптер и новым списком
         val diffResult = DiffUtil.calculateDiff(CurrencyListDiffUtilsCallback(currency, newList))
         // замена списка, который держит адаптер на новый
@@ -34,27 +36,35 @@ class CurrencyListAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
+    // из-за записи value c запятой нужна коррекция формата
+    private fun doubleFromString(s: String) : Double{
+        val format = NumberFormat.getInstance(Locale.getDefault())
+        val num = format.parse(s)
+        @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+        return num.toDouble()
+    }
+
     inner class CurrencyListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val listItemBinding = CurrencyListItemBinding.bind(itemView)
 
-        fun bind(currencyItem: CurrencyItem) {
-            val nameAndNominal = currencyItem.nominal.toString() + " " + currencyItem.name
+        fun bind(valute: Valute) {
+            val nameAndNominal = valute.nominal.toString() + " " + valute.name
             listItemBinding.currencyName.text = nameAndNominal
-            listItemBinding.currencyValue.text = currencyItem.value.toString()
-            listItemBinding.currencyShortName.text = currencyItem.charCode
+            listItemBinding.currencyValue.text = valute.value
+            listItemBinding.currencyShortName.text = valute.charCode
             listItemBinding.root.setOnClickListener {
                 onClick(
-                    currencyItem.value,
-                    currencyItem.nominal,
-                    currencyItem.name
+                    doubleFromString(valute.value),
+                    valute.nominal,
+                    valute.name
                 )
             }
         }
     }
 
     inner class CurrencyListDiffUtilsCallback(
-        private val oldList: List<CurrencyItem>,
-        private val newList: List<CurrencyItem>
+        private val oldList: List<Valute>,
+        private val newList: List<Valute>
     ) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
         override fun getNewListSize() = newList.size
