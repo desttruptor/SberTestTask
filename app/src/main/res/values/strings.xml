@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">SberTestTask</string>
+    <string name="label_currency_rate">Курсы валют</string>
+    <string name="label_currency_converter">Конвертер валют</string>
+    <string name="label_i_have">У меня есть:</string>
+    <string name="label_i_want">Хочу приобрести:</string>
+    <string name="label_russian_roubles">Российские рубли</string>
+    <string name="label_calculate">Рассчитать</string>
+    <string name="label_error">Ошибка загрузки</string>
+    <string name="label_retry">Retry</string>
 </resources>
