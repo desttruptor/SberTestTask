@@ -36,6 +36,4 @@ class CurrencyConverterViewModel(init_value: Double, init_nominal: Double) : Vie
         val nominal = Math.round((value / factor) * 100.0) / 100.0
         updateNominal(nominal)
     }
-
-
 }
