@@ -11,7 +11,7 @@ import me.podlesnykh.sbertesttask.network.CurrencyItem
 
 class CurrencyListAdapter(
     private var currency: List<CurrencyItem>,
-    private val onClick: (Double, Int) -> Unit
+    private val onClick: (Double, Int, String) -> Unit
 ) : RecyclerView.Adapter<CurrencyListAdapter.CurrencyListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -45,7 +45,8 @@ class CurrencyListAdapter(
             listItemBinding.root.setOnClickListener {
                 onClick(
                     currencyItem.value,
-                    currencyItem.nominal
+                    currencyItem.nominal,
+                    currencyItem.name
                 )
             }
         }

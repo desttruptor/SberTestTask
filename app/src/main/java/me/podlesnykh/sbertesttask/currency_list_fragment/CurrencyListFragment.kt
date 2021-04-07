@@ -21,15 +21,7 @@ class CurrencyListFragment : Fragment() {
     private val binding get() = _binding!!
 
     // адаптер инициализируется пустым списком
-    private val currencyList: List<CurrencyItem> = listOf(
-        CurrencyItem(
-            numCode = 100,
-            charCode = "CAD",
-            nominal = 1,
-            name = "Канадский доллар",
-            value = 60.9817
-        )
-    )
+    private val currencyList: List<CurrencyItem> = emptyList()
     private val adapter = CurrencyListAdapter(currencyList, ::openConverterScreen)
 
     override fun onCreateView(
@@ -56,12 +48,13 @@ class CurrencyListFragment : Fragment() {
     }
 
     // переход на экран конвертера выбранной валюты
-    private fun openConverterScreen(value: Double, nominal: Int) {
+    private fun openConverterScreen(value: Double, nominal: Int, name: String) {
         findNavController().navigate(
             R.id.currencyConverterFragment,
             bundleOf(
                 "value" to value,
-                "nominal" to nominal
+                "nominal" to nominal,
+                "name" to name
             )
         )
     }

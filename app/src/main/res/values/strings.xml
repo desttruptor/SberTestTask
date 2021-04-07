@@ -4,7 +4,6 @@
     <string name="label_currency_converter">Конвертер валют</string>
     <string name="label_i_have">У меня есть:</string>
     <string name="label_i_want">Хочу приобрести:</string>
-    <string name="hint_currency_name">российские рубли</string>
-    <string name="label_russian_roubles">российские рубли</string>
+    <string name="label_russian_roubles">Российские рубли</string>
     <string name="label_calculate">Рассчитать</string>
 </resources>

@@ -30,7 +30,8 @@ class CurrencyConverterFragment : Fragment() {
         val view = binding.root
         (activity as AppCompatActivity).supportActionBar?.title =
             getString(R.string.label_currency_converter)
-
+        // установить текст с именем второй валюты
+        binding.labelCurrencyCustom?.text = requireArguments().getString("name")
         return view
     }
 
