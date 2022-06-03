@@ -44,7 +44,7 @@ class CurrencyListAdapter(
             listItemBinding.currencyShortName.text = valute.charCode
             listItemBinding.root.setOnClickListener {
                 onClick(
-                    doubleFromString(valute.value),
+                    doubleFromCommaString(valute.value),
                     valute.nominal,
                     valute.name
                 )
@@ -52,7 +52,7 @@ class CurrencyListAdapter(
         }
 
         // из-за записи value c запятой нужна коррекция формата
-        private fun doubleFromString(s: String): Double =
+        private fun doubleFromCommaString(s: String): Double =
             s.replace(",", ".").toDouble()
     }
 

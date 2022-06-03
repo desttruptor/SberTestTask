@@ -52,12 +52,8 @@ class CurrencyListFragment : Fragment() {
         setupRecyclerView()
         viewModel.loadCurrencyList()
 
-        viewModel.errorDialog.observe(viewLifecycleOwner) {
-            showError(it)
-        }
-        viewModel.loadingFlag.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
+        viewModel.errorDialog.observe(viewLifecycleOwner, ::showError)
+        viewModel.loadingFlag.observe(viewLifecycleOwner, ::showLoading)
         viewModel.currencyList.observe(viewLifecycleOwner) {
             adapter.submitList(it.currencyList)
         }
@@ -65,15 +61,16 @@ class CurrencyListFragment : Fragment() {
 
     private fun showError(isShown: Boolean) {
         if (isShown) {
-            val snackbar = Snackbar.make(
+            Snackbar.make(
                 binding.root,
                 requireContext().getString(R.string.label_error),
                 Snackbar.LENGTH_INDEFINITE
-            )
-            snackbar.setAction(getString(R.string.label_retry)) {
-                viewModel.loadCurrencyList()
+            ).apply {
+                setAction(getString(R.string.label_retry)) {
+                    viewModel.loadCurrencyList()
+                }
+                show()
             }
-            snackbar.show()
         }
     }
 
@@ -103,8 +100,8 @@ class CurrencyListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.rvCurrencyList.adapter = adapter
         adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
+        binding.rvCurrencyList.adapter = adapter
         binding.rvCurrencyList.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }

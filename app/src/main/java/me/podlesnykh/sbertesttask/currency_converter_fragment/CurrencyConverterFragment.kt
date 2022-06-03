@@ -39,7 +39,8 @@ class CurrencyConverterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(
-            this, CurrencyConverterViewModelFactory(
+            this,
+            CurrencyConverterViewModelFactory(
                 requireArguments().getDouble("value"),
                 requireArguments().getInt("nominal").toDouble()
             )
