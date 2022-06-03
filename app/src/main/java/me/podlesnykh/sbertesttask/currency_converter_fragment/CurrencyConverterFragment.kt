@@ -77,10 +77,8 @@ class CurrencyConverterFragment : Fragment() {
     // для того, чтобы при перевороте экрана не терялись значения в полях ввода
     override fun onStop() {
         super.onStop()
-        viewModel.updateValue(
-            binding.currency1.text.toString().toDouble()
-        )
-        viewModel.updateNominal(
+        viewModel.saveValueAndNominal(
+            binding.currency1.text.toString().toDouble(),
             binding.currency2.text.toString().toDouble()
         )
     }
@@ -89,5 +87,4 @@ class CurrencyConverterFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

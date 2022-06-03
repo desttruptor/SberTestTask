@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import me.podlesnykh.sbertesttask.R
 import me.podlesnykh.sbertesttask.databinding.CurrencyListItemBinding
 import me.podlesnykh.sbertesttask.network.pojo.Valute
-import java.text.NumberFormat
-import java.util.*
 
 class CurrencyListAdapter(
     private var currency: List<Valute>,
@@ -36,20 +34,12 @@ class CurrencyListAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
-    // из-за записи value c запятой нужна коррекция формата
-    private fun doubleFromString(s: String) : Double{
-        val format = NumberFormat.getInstance(Locale.getDefault())
-        val num = format.parse(s)
-        @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-        return num.toDouble()
-    }
-
     inner class CurrencyListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val listItemBinding = CurrencyListItemBinding.bind(itemView)
 
         fun bind(valute: Valute) {
-            val nameAndNominal = valute.nominal.toString() + " " + valute.name
-            listItemBinding.currencyName.text = nameAndNominal
+            val nominalAndName = "${valute.nominal} ${valute.name}"
+            listItemBinding.currencyName.text = nominalAndName
             listItemBinding.currencyValue.text = valute.value
             listItemBinding.currencyShortName.text = valute.charCode
             listItemBinding.root.setOnClickListener {
@@ -60,6 +50,10 @@ class CurrencyListAdapter(
                 )
             }
         }
+
+        // из-за записи value c запятой нужна коррекция формата
+        private fun doubleFromString(s: String): Double =
+            s.replace(",", ".").toDouble()
     }
 
     inner class CurrencyListDiffUtilsCallback(

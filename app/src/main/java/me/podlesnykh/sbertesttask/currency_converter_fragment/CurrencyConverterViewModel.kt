@@ -2,6 +2,7 @@ package me.podlesnykh.sbertesttask.currency_converter_fragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlin.math.roundToInt
 
 class CurrencyConverterViewModel(init_value: Double, init_nominal: Double) : ViewModel() {
     private val _mutableValue = MutableLiveData<Double>()
@@ -15,25 +16,22 @@ class CurrencyConverterViewModel(init_value: Double, init_nominal: Double) : Vie
     }
 
     init {
-        updateValue(init_value)
-        updateNominal(init_nominal)
-    }
-
-    fun updateValue(value: Double) {
-        _mutableValue.value = value
-    }
-
-    fun updateNominal(nominal: Double) {
-        _mutableNominal.value = nominal
+        _mutableValue.value = init_value
+        _mutableNominal.value = init_nominal
     }
 
     fun calculateValue(nominal: Double) {
-        val value = Math.round((nominal * factor) * 100.0) / 100.0
-        updateValue(value)
+        val value = ((nominal * factor) * 100.0).roundToInt() / 100.0
+        _mutableValue.value = value
     }
 
     fun calculateNominal(value: Double) {
-        val nominal = Math.round((value / factor) * 100.0) / 100.0
-        updateNominal(nominal)
+        val nominal = ((value / factor) * 100.0).roundToInt() / 100.0
+        _mutableNominal.value = nominal
+    }
+
+    fun saveValueAndNominal(value: Double, nominal: Double) {
+        _mutableValue.value = value
+        _mutableNominal.value = nominal
     }
 }
