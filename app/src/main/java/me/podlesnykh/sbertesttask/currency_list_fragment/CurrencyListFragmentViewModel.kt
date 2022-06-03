@@ -1,6 +1,7 @@
 package me.podlesnykh.sbertesttask.currency_list_fragment
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.room.Room
@@ -43,13 +44,16 @@ class CurrencyListFragmentViewModel(application: Application) : ViewModel() {
             override fun onFailure(call: Call, e: IOException) {
                 errorDialog.postValue(true)
                 _loadingFlag.postValue(false)
+                Log.v("ERROR", e.localizedMessage)
                 val dbEntity = db.currencyStorageDao().getAll()
-                _currencyList.postValue(
-                    CurrencyList(
-                        dbEntity.currencyList,
-                        dbEntity.date
+                if (dbEntity != null) {
+                    _currencyList.postValue(
+                        CurrencyList(
+                            dbEntity.currencyList,
+                            dbEntity.date
+                        )
                     )
-                )
+                }
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -61,9 +65,7 @@ class CurrencyListFragmentViewModel(application: Application) : ViewModel() {
                         date = data.date
                     )
                 )
-                _currencyList.postValue(
-                    data
-                )
+                _currencyList.postValue(data)
                 loadingFlag.postValue(false)
             }
         })

@@ -21,7 +21,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "CURRENCY_RATE_URL", "\"http://www.cbr.ru/scripts/XML_daily.asp\""
+        buildConfigField "String", "CURRENCY_RATE_URL", "\"https://www.cbr.ru/scripts/XML_daily.asp\""
     }
 
     buildTypes {
